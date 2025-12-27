@@ -1,0 +1,82 @@
+Autonomous AI Voice Agent - Architecture Diagram
+
+┌─────────────────────────────────────────────────────────────────┐
+│                    USER INTERACTION LAYER                       │
+├─────────────────────────────────────────────────────────────────┤
+│  Input: Voice/Text (Microphone or Keyboard)                     │
+│  Output: Voice (Speakers) + Text (Console)                      │
+└─────────────────────────────────────────────────────────────────┘
+                                 │
+                                 ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                 SPEECH PROCESSING LAYER                         │
+├─────────────────────────────────────────────────────────────────┤
+│  Speech-to-Text (STT):                                           │
+│  - Google Speech Recognition API (free, open-source)            │
+│  - Fallback: Text input if microphone unavailable               │
+│                                                                 │
+│  Text-to-Speech (TTS):                                           │
+│  - pyttsx3 library (offline, cross-platform)                    │
+│  - Voice modulation: Rate adjustment based on sentiment         │
+└─────────────────────────────────────────────────────────────────┘
+                                 │
+                                 ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                 CONVERSATION ENGINE                              │
+├─────────────────────────────────────────────────────────────────┤
+│  Intent Detection:                                               │
+│  - Keyword matching for: refund, cancel, help                   │
+│  - Fallback: General intent for unrecognized input              │
+│                                                                 │
+│  Dialogue Control Logic:                                         │
+│  - Scripted Mode: Predefined refund conversation sequence       │
+│  - Free-flow Mode: Adaptive responses based on intents          │
+│  - Mode Switching: Automatic after scripted sequence completion │
+│                                                                 │
+│  Response Generation:                                            │
+│  - Context-aware responses using conversation memory            │
+│  - Handles objections and unexpected responses gracefully       │
+└─────────────────────────────────────────────────────────────────┘
+                                 │
+                                 ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                 MEMORY & AUTONOMY SYSTEM                         │
+├─────────────────────────────────────────────────────────────────┤
+│  Conversation Memory:                                            │
+│  - List-based storage of all user-agent exchanges               │
+│  - Persistent throughout session                                 │
+│                                                                 │
+│  Autonomy Features:                                              │
+│  - Self-contained processing loop                                │
+│  - Independent initiation, response, and conclusion             │
+│  - Context awareness using memory and intent history            │
+│                                                                 │
+│  Error Handling:                                                 │
+│  - Microphone fallback to text input                            │
+│  - Network error handling for STT                               │
+│  - Graceful degradation for missing components                  │
+└─────────────────────────────────────────────────────────────────┘
+
+Key Technologies:
+- STT: speech_recognition (Google API)
+- TTS: pyttsx3 (offline)
+- Sentiment Analysis: textblob
+- Intent Matching: Custom keyword lists
+- Memory: Python lists
+- Platform: Cross-platform (Windows/Linux/Mac)
+
+Data Flow:
+1. User speaks/types input
+2. STT converts to text
+3. Intent detection analyzes text
+4. Dialogue logic determines response mode
+5. Response generated with context
+6. Voice modulated based on sentiment
+7. TTS converts to speech output
+8. Memory updated for future context
+
+Autonomy Achieved Through:
+- Event-driven loop processing
+- State management (scripted/free-flow modes)
+- Memory-based context awareness
+- Independent decision making without external control
